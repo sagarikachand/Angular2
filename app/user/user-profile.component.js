@@ -20,7 +20,7 @@ var UserProfileComponent = (function () {
     UserProfileComponent.prototype.ngOnInit = function () {
         console.log("oninit");
         console.log(this.authService.currentUser.firstName);
-        this.firstName = new forms_1.FormControl(this.authService.currentUser.firstName, forms_1.Validators.required);
+        this.firstName = new forms_1.FormControl(this.authService.currentUser.firstName, [forms_1.Validators.required, forms_1.Validators.pattern('[a-zA-z].*')]);
         this.lastName = new forms_1.FormControl(this.authService.currentUser.lastName, forms_1.Validators.required);
         this.profileForm = new forms_1.FormGroup({
             lastName: this.lastName,
@@ -33,6 +33,12 @@ var UserProfileComponent = (function () {
             this.authService.updateCurrentUser(value);
         }
     };
+    UserProfileComponent.prototype.validateLastName = function () {
+        return this.lastName.valid || this.lastName.untouched;
+    };
+    UserProfileComponent.prototype.validateFirstName = function () {
+        return this.firstName.valid || this.firstName.untouched;
+    };
     UserProfileComponent.prototype.cancel = function () {
         this.router.navigate(['events']);
     };
@@ -40,7 +46,7 @@ var UserProfileComponent = (function () {
         core_1.Component({
             templateUrl: 'app/user/user-profile.component.html',
             styles: [
-                "\n      em{float:right;padding-left:10px;color:#E05C65}\n      .error input{background-color: #E3c3c5}\n     .error::-webkit-input-placeholder{color: #999}\n\n     "
+                "\n      em{float:right;padding-left:10px;color:#E05C65}\n      .error input{background-color: #E3c3c5}\n     .error::-webkit-input-placeholder{color: #999}\n     .error::-moz-placeholder{color: #999}\n     .error::-ms-input-placeholder{color: #999}\n     \n     "
             ]
         }), 
         __metadata('design:paramtypes', [user_auth_service_1.UserAuthService, router_1.Router])

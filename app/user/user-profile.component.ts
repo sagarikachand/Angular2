@@ -12,7 +12,9 @@ import { Router } from '@angular/router';
       em{float:right;padding-left:10px;color:#E05C65}
       .error input{background-color: #E3c3c5}
      .error::-webkit-input-placeholder{color: #999}
-
+     .error::-moz-placeholder{color: #999}
+     .error::-ms-input-placeholder{color: #999}
+     
      `  
   ]
   
@@ -28,7 +30,7 @@ export class UserProfileComponent implements OnInit{
       ngOnInit(){
         console.log("oninit")
         console.log(this.authService.currentUser.firstName);
-       this.firstName=new FormControl(this.authService.currentUser.firstName, Validators.required);
+       this.firstName=new FormControl(this.authService.currentUser.firstName,[Validators.required,Validators.pattern('[a-zA-z].*') ]);
         this.lastName=new FormControl(this.authService.currentUser.lastName,Validators.required);
 
 
@@ -45,8 +47,17 @@ export class UserProfileComponent implements OnInit{
          if(this.profileForm.valid){
           this.authService.updateCurrentUser(value);
          }
-         
+    
        }
+
+       validateLastName(){
+         return this.lastName.valid || this.lastName.untouched
+       }
+
+       validateFirstName(){
+        return this.firstName.valid || this.firstName.untouched
+      }
+      
        
        cancel(){
         this.router.navigate(['events']) ;
