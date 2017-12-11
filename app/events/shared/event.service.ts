@@ -21,6 +21,17 @@ export class EventService{
       return  EVENTS.find(event=> event.id===id)
     }
 
+    saveEvent(eventObj){
+      eventObj.id=999;
+      eventObj.sessions=[],
+      EVENTS.push(eventObj);
+    }
+    updateEvent(event){
+      console.log("inside updateEvent in service")
+      let index= EVENTS.findIndex(x=> x.id =event.id);
+      EVENTS[index]=event;
+    }
+
 }
 
 

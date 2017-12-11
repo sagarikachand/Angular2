@@ -35,6 +35,8 @@ var AppModule = (function () {
                 index_1.EventDetailsComponent,
                 index_1.CreateEventComponent,
                 _404_component_1.ErrorComponent,
+                index_1.CreateSessionComponent,
+                index_1.SessionListComponent
             ],
             bootstrap: [events_app_component_1.EventsAppComponent],
             providers: [index_1.EventService, toastr_service_1.ToastrService, index_1.EventRouteActivator, user_auth_service_1.UserAuthService,

@@ -5,7 +5,7 @@ import { ErrorComponent } from "./errors/404.component";
 import { EventsListComponent,
   EventDetailsComponent,
   CreateEventComponent
-  ,EventsListResolver,EventRouteActivator} from './events/index'
+  ,EventsListResolver,EventRouteActivator,CreateSessionComponent} from './events/index'
 
 
 export const appRoute:Routes=[
@@ -14,6 +14,7 @@ export const appRoute:Routes=[
   canDeactivate: ['CanDeactivateCreateEvent']},
   {path:'events/:id' ,component:EventDetailsComponent, 
   canActivate:[EventRouteActivator]},
+  {path:'events/session/new' ,component:CreateSessionComponent},
   {path: 'events', component:EventsListComponent, 
   resolve : { events: EventsListResolver },
   },

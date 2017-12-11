@@ -6,6 +6,7 @@ exports.appRoute = [
         canDeactivate: ['CanDeactivateCreateEvent'] },
     { path: 'events/:id', component: index_1.EventDetailsComponent,
         canActivate: [index_1.EventRouteActivator] },
+    { path: 'events/session/new', component: index_1.CreateSessionComponent },
     { path: 'events', component: index_1.EventsListComponent,
         resolve: { events: index_1.EventsListResolver },
     },

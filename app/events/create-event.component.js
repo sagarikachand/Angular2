@@ -10,19 +10,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var index_1 = require('./shared/index');
 var CreateEventComponent = (function () {
-    function CreateEventComponent(router) {
+    function CreateEventComponent(router, eventService) {
         this.router = router;
+        this.eventService = eventService;
         this.isDirty = true;
     }
     CreateEventComponent.prototype.handleCancel = function () {
         this.router.navigate(['/events']);
     };
+    CreateEventComponent.prototype.saveEvent = function (Recvalue) {
+        console.log(Recvalue);
+        this.eventService.saveEvent(Recvalue);
+        this.isDirty = false;
+        this.router.navigate(['/events']);
+    };
     CreateEventComponent = __decorate([
         core_1.Component({
-            template: "\n    <h1> This is new event\"</h1>\n    <hr>\n    <div class=\"col-md-6\">\n    <h3>[Create event will go here]</h3>\n\n    <br/>\n    <button type=\"submit\"  class=\"btn btn-primary\">Save</button>\n    <button type=\"button\"  class=\"btn btn-primary\" (click)=\"handleCancel()\"\n    >Cancel</button>\n\n    "
+            templateUrl: 'app/events/create-event.component.html',
+            styles: [
+                "\n        em{float:right;padding-left:10px;color:#E05C65}\n        .error input{background-color: #E3c3c5}\n       .error::-webkit-input-placeholder{color: #999}\n       .error::-moz-placeholder{color: #999}\n       .error::-ms-input-placeholder{color: #999}\n       \n       "
+            ]
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, index_1.EventService])
     ], CreateEventComponent);
     return CreateEventComponent;
 }());

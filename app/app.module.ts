@@ -6,7 +6,7 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms'
 import { EventsListComponent,
   EventThumbnailComponent,EventDetailsComponent,
   CreateEventComponent,
-  EventService,EventsListResolver,EventRouteActivator} from './events/index'
+  EventService,EventsListResolver,EventRouteActivator, CreateSessionComponent,SessionListComponent} from './events/index'
 
 import { NavBarComponent } from './nav/navbar.components';
 
@@ -17,6 +17,7 @@ import {appRoute} from './routes'
 import { ErrorComponent } from './errors/404.component';
 import { EventsAppComponent } from './events-app.component';
 import { UserAuthService } from './user/user.auth.service';
+
 
 
 
@@ -32,6 +33,8 @@ import { UserAuthService } from './user/user.auth.service';
     EventDetailsComponent,
     CreateEventComponent,
     ErrorComponent,
+    CreateSessionComponent,
+    SessionListComponent
     
     
   ],
