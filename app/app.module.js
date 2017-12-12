@@ -15,6 +15,7 @@ var forms_1 = require('@angular/forms');
 var index_1 = require('./events/index');
 var navbar_components_1 = require('./nav/navbar.components');
 var toastr_service_1 = require('./commom/toastr.service');
+var content_slide_component_1 = require('./commom/content-slide.component');
 var routes_1 = require('./routes');
 var _404_component_1 = require('./errors/404.component');
 var events_app_component_1 = require('./events-app.component');
@@ -36,7 +37,8 @@ var AppModule = (function () {
                 index_1.CreateEventComponent,
                 _404_component_1.ErrorComponent,
                 index_1.CreateSessionComponent,
-                index_1.SessionListComponent
+                index_1.SessionListComponent,
+                content_slide_component_1.ContentSlideComponent
             ],
             bootstrap: [events_app_component_1.EventsAppComponent],
             providers: [index_1.EventService, toastr_service_1.ToastrService, index_1.EventRouteActivator, user_auth_service_1.UserAuthService,

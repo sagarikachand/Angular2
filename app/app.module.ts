@@ -11,6 +11,7 @@ import { EventsListComponent,
 import { NavBarComponent } from './nav/navbar.components';
 
 import { ToastrService } from './commom/toastr.service';
+import {ContentSlideComponent} from './commom/content-slide.component'
 
 import {appRoute} from './routes'
 
@@ -34,7 +35,8 @@ import { UserAuthService } from './user/user.auth.service';
     CreateEventComponent,
     ErrorComponent,
     CreateSessionComponent,
-    SessionListComponent
+    SessionListComponent,
+    ContentSlideComponent
     
     
   ],
