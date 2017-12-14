@@ -1,8 +1,9 @@
-import { Component } from '@angular/core'
+import { Component,Inject} from '@angular/core'
 import { OnInit } from '@angular/core';
 import { FormsModule,ReactiveFormsModule,FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserAuthService } from './user.auth.service';
 import { Router } from '@angular/router';
+import { Toastr, TOASTR_TOKEN } from '../commom/toastr.service';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class UserProfileComponent implements OnInit{
   private firstName;
   private lastName;
        constructor(private authService:UserAuthService,
-      private router:Router){}
+      private router:Router,
+         @Inject(TOASTR_TOKEN) private toastr:Toastr){}
 
       ngOnInit(){
         console.log("oninit")
@@ -46,7 +48,9 @@ export class UserProfileComponent implements OnInit{
          console.log(this.profileForm.valid)
          if(this.profileForm.valid){
           this.authService.updateCurrentUser(value);
+          this.toastr.success('Saved Succesfully');
          }
+         
     
        }
 

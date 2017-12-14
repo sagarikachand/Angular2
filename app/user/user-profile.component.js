@@ -8,14 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var user_auth_service_1 = require('./user.auth.service');
 var router_1 = require('@angular/router');
+var toastr_service_1 = require('../commom/toastr.service');
 var UserProfileComponent = (function () {
-    function UserProfileComponent(authService, router) {
+    function UserProfileComponent(authService, router, toastr) {
         this.authService = authService;
         this.router = router;
+        this.toastr = toastr;
     }
     UserProfileComponent.prototype.ngOnInit = function () {
         console.log("oninit");
@@ -31,6 +36,7 @@ var UserProfileComponent = (function () {
         console.log(this.profileForm.valid);
         if (this.profileForm.valid) {
             this.authService.updateCurrentUser(value);
+            this.toastr.success('Saved Succesfully');
         }
     };
     UserProfileComponent.prototype.validateLastName = function () {
@@ -48,8 +54,9 @@ var UserProfileComponent = (function () {
             styles: [
                 "\n      em{float:right;padding-left:10px;color:#E05C65}\n      .error input{background-color: #E3c3c5}\n     .error::-webkit-input-placeholder{color: #999}\n     .error::-moz-placeholder{color: #999}\n     .error::-ms-input-placeholder{color: #999}\n     \n     "
             ]
-        }), 
-        __metadata('design:paramtypes', [user_auth_service_1.UserAuthService, router_1.Router])
+        }),
+        __param(2, core_1.Inject(toastr_service_1.TOASTR_TOKEN)), 
+        __metadata('design:paramtypes', [user_auth_service_1.UserAuthService, router_1.Router, Object])
     ], UserProfileComponent);
     return UserProfileComponent;
 }());

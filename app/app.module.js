@@ -14,8 +14,7 @@ var router_1 = require('@angular/router');
 var forms_1 = require('@angular/forms');
 var index_1 = require('./events/index');
 var navbar_components_1 = require('./nav/navbar.components');
-var toastr_service_1 = require('./commom/toastr.service');
-var content_slide_component_1 = require('./commom/content-slide.component');
+var index_2 = require('./commom/index');
 var routes_1 = require('./routes');
 var _404_component_1 = require('./errors/404.component');
 var events_app_component_1 = require('./events-app.component');
@@ -38,10 +37,15 @@ var AppModule = (function () {
                 _404_component_1.ErrorComponent,
                 index_1.CreateSessionComponent,
                 index_1.SessionListComponent,
-                content_slide_component_1.ContentSlideComponent
+                index_2.ContentSlideComponent,
+                index_1.DurationPipe,
+                index_2.ModalTriggerDirective,
+                index_2.SimpleModalComponent
             ],
             bootstrap: [events_app_component_1.EventsAppComponent],
-            providers: [index_1.EventService, toastr_service_1.ToastrService, index_1.EventRouteActivator, user_auth_service_1.UserAuthService,
+            providers: [index_1.EventService, index_1.EventRouteActivator, user_auth_service_1.UserAuthService,
+                { provide: index_2.TOASTR_TOKEN, useValue: toastr },
+                { provide: index_2.JQ_TOKEN, useValue: jQuery },
                 {
                     provide: 'CanDeactivateCreateEvent',
                     useValue: checkDirtyState

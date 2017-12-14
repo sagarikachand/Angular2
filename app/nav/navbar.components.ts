@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { UserAuthService } from "../user/user.auth.service";
 import {RouterLinkActive} from '@angular/router'
+import { ISession, EventService } from "../events/index";
 
 
 @Component({
@@ -14,5 +15,17 @@ import {RouterLinkActive} from '@angular/router'
         `]
 })
 export class NavBarComponent {
-constructor(private authSevice: UserAuthService){}
+    foundSessions: ISession[];
+   private searchKey:string=""
+constructor(private authSevice:UserAuthService,private eventService:EventService,
+){}
+
+searchSession(searchKey){
+    console.log(searchKey);
+    this.eventService.searchSession(searchKey).subscribe(
+        sessions=> {this.foundSessions=sessions;}
+        
+    )
+   
+}
 }

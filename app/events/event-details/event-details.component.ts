@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { EventService } from '../shared/event.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { IEvent, ISession } from '../index';
 
 
@@ -17,13 +17,25 @@ import { IEvent, ISession } from '../index';
 })
 export class EventDetailsComponent implements OnInit{ 
     addMode: boolean=false;
+    filterBy: string="all"  ;
+    sortBy:string="votes"
    
     event:IEvent;
    constructor(private eventService:EventService,
 private activatedRoute:ActivatedRoute){}
+
       ngOnInit(){
-        this.event=this.eventService.getEvent(
-            +(this.activatedRoute.snapshot.params['id']));
+      this.activatedRoute.params.forEach((params:Params)=>{
+          console.log("for each" + params['id']);
+        this.event=this.eventService.getEvent(+params['id']);
+        this.addMode=false;//reset addMode state to default 
+        //Can also reset filterBy and sortBy if necessary
+        
+      })// Use this forEach method to navigate to routes with id ,
+      //Here the event state is resetting,so reset all states of the component to their defaults.
+
+        // this.event=this.eventService.getEvent(
+        //     +(this.activatedRoute.snapshot.params['id']));
  }
 
   addSession(){

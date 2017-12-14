@@ -16,9 +16,20 @@ var EventDetailsComponent = (function () {
         this.eventService = eventService;
         this.activatedRoute = activatedRoute;
         this.addMode = false;
+        this.filterBy = "all";
+        this.sortBy = "votes";
     }
     EventDetailsComponent.prototype.ngOnInit = function () {
-        this.event = this.eventService.getEvent(+(this.activatedRoute.snapshot.params['id']));
+        var _this = this;
+        this.activatedRoute.params.forEach(function (params) {
+            console.log("for each" + params['id']);
+            _this.event = _this.eventService.getEvent(+params['id']);
+            _this.addMode = false; //reset addMode state to default 
+            //Can also reset filterBy and sortBy if necessary
+        }); // Use this forEach method to navigate to routes with id ,
+        //Here the event state is resetting,so reset all states of the component to their defaults.
+        // this.event=this.eventService.getEvent(
+        //     +(this.activatedRoute.snapshot.params['id']));
     };
     EventDetailsComponent.prototype.addSession = function () {
         this.addMode = true;

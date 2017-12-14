@@ -11,6 +11,7 @@ import { Title } from '@angular/platform-browser/src/browser/title';
      <ng-content *ngIf="visible" select="[well-body]"></ng-content>
     </div>
     ` 
+    
 })
 export class ContentSlideComponent { 
    

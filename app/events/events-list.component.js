@@ -10,28 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var event_service_1 = require('./shared/event.service');
-var toastr_service_1 = require('../commom/toastr.service');
 var router_1 = require('@angular/router');
 var EventsListComponent = (function () {
-    function EventsListComponent(eventService, toastr, activatedRoute) {
+    function EventsListComponent(eventService, activatedRoute) {
         this.eventService = eventService;
-        this.toastr = toastr;
         this.activatedRoute = activatedRoute;
     }
     // 
     EventsListComponent.prototype.ngOnInit = function () {
         this.events = this.activatedRoute.snapshot.data['events'];
     };
-    EventsListComponent.prototype.handleClick = function (eventName) {
-        console.log("click");
-        this.toastr.success(eventName);
-    };
     EventsListComponent = __decorate([
         core_1.Component({
             selector: 'events-list',
-            template: "\n  <div>\n    <h1>Upcoming Angular 2 Events</h1>\n    <hr/>\n    <div class=\"row\">\n      <div class=\"col-md-5\" *ngFor=\"let event of events\">\n      <event-thumbnail  [event]=\"event\" (click)=\"handleClick(event)\"></event-thumbnail>\n      </div>\n    </div>\n\n    \n  </div>\n  \n  ",
+            template: "\n  <div>\n    <h1>Upcoming Angular 2 Events</h1>\n    <hr/>\n    <div class=\"row\">\n      <div class=\"col-md-5\" *ngFor=\"let event of events\">\n      <event-thumbnail  [event]=\"event\" ></event-thumbnail>\n      </div>\n    </div>\n\n    \n  </div>\n  \n  ",
         }), 
-        __metadata('design:paramtypes', [event_service_1.EventService, toastr_service_1.ToastrService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [event_service_1.EventService, router_1.ActivatedRoute])
     ], EventsListComponent);
     return EventsListComponent;
 }());

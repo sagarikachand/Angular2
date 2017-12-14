@@ -31,6 +31,25 @@ var EventService = (function () {
         var index = EVENTS.findIndex(function (x) { return x.id = event.id; });
         EVENTS[index] = event;
     };
+    EventService.prototype.searchSession = function (searchKey) {
+        var matchingSessions = [];
+        var term = searchKey.toLocaleLowerCase();
+        var results = [];
+        EVENTS.forEach(function (event) {
+            matchingSessions = event.sessions.filter(function (session) {
+                return session.name.toLocaleLowerCase().indexOf(term) > -1;
+            });
+            console.log(matchingSessions.length + "arrL");
+            matchingSessions = matchingSessions.map(function (session) {
+                session.eventId = event.id;
+                return session;
+            });
+            results = results.concat(matchingSessions);
+        });
+        var emitter = new core_1.EventEmitter(true);
+        setTimeout(function () { emitter.emit(results); }, 100);
+        return emitter;
+    };
     EventService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])
