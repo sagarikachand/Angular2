@@ -7,7 +7,8 @@ import { EventsListComponent,
   EventThumbnailComponent,EventDetailsComponent,
   CreateEventComponent,
   EventService,EventsListResolver,EventRouteActivator, 
-  CreateSessionComponent,SessionListComponent,DurationPipe} from './events/index'
+  CreateSessionComponent,SessionListComponent,DurationPipe,UpvoteComponent,
+VoterService} from './events/index'
 
 import { NavBarComponent } from './nav/navbar.components';
 
@@ -43,12 +44,14 @@ declare let jQuery:Object;
     ContentSlideComponent,
     DurationPipe,
     ModalTriggerDirective,
-    SimpleModalComponent
+    SimpleModalComponent,
+    UpvoteComponent,
+    
     
     
   ],
   bootstrap: [EventsAppComponent],
-  providers:[ EventService,EventRouteActivator,UserAuthService,
+  providers:[ EventService,EventRouteActivator,UserAuthService,VoterService,
     {provide: TOASTR_TOKEN, useValue:toastr},
     {provide: JQ_TOKEN, useValue:jQuery},
     {

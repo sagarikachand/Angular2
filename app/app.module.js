@@ -40,10 +40,11 @@ var AppModule = (function () {
                 index_2.ContentSlideComponent,
                 index_1.DurationPipe,
                 index_2.ModalTriggerDirective,
-                index_2.SimpleModalComponent
+                index_2.SimpleModalComponent,
+                index_1.UpvoteComponent,
             ],
             bootstrap: [events_app_component_1.EventsAppComponent],
-            providers: [index_1.EventService, index_1.EventRouteActivator, user_auth_service_1.UserAuthService,
+            providers: [index_1.EventService, index_1.EventRouteActivator, user_auth_service_1.UserAuthService, index_1.VoterService,
                 { provide: index_2.TOASTR_TOKEN, useValue: toastr },
                 { provide: index_2.JQ_TOKEN, useValue: jQuery },
                 {

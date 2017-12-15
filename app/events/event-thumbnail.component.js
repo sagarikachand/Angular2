@@ -1,3 +1,7 @@
+//Here each event is taken and diplayed in small tabs
+//Each tab is clikable which takes us to detail view of each event
+//This detail view is achieved by routing to a route [routerLink]="['/events',event.id]"
+//We are passing the event.id
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;

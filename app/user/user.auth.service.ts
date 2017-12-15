@@ -30,5 +30,10 @@ updateCurrentUser(value){
     this.currentUser.lastName=value.lastName
     this.router.navigate(['events']);
 }
+
+
+    
+    
+
       
 }

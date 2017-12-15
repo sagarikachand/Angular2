@@ -1,3 +1,8 @@
+//Here each event is taken and diplayed in small tabs
+//Each tab is clikable which takes us to detail view of each event
+//This detail view is achieved by routing to a route [routerLink]="['/events',event.id]"
+//We are passing the event.id
+
 import { Component, Input, Output ,EventEmitter } from '@angular/core'
 import { IEvent } from './index';
 

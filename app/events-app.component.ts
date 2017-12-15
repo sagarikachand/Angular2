@@ -1,3 +1,4 @@
+//Starting component that incorporated nav-bar and a router-outlet for route specific teplate
 import { Component } from '@angular/core'
 
 

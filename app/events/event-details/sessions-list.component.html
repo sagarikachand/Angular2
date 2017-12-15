@@ -1,5 +1,10 @@
 <div class="row" *ngFor="let session of visibleSession">
-
+  <!-- Display voting rights only if a user is logged in -->
+        <div class="col-md-1" *ngIf="authService.isAuthenticated()">
+          <upvote  (vote)="toggleVote(session)" 
+          [count]="session.voters.length"  [voted]="userHasVoted(session)">
+        </upvote>
+        </div>
         <div class="col-md-10">
           <content-slide>
              <div well-title>

@@ -17,6 +17,7 @@ var SimpleModalComponent = (function () {
     function SimpleModalComponent($) {
         this.$ = $;
     }
+    // Injecting jQuery to use .modal method on the modal Ele
     SimpleModalComponent.prototype.closeModal = function () {
         if (this.closeOnBodyClick.toLocaleLowerCase() === 'true')
             this.$(this.modalEle.nativeElement).modal('hide');
@@ -41,7 +42,8 @@ var SimpleModalComponent = (function () {
         core_1.Component({
             selector: 'simple-modal',
             //The reference variable string should be all lowercase
-            template: "             \n  <div id=\"{{elementId}}\" #modalrefvariable class=\"modal fade\" tabindex=\"-1\">\n    <div class=\"modal-dialog\">\n      <div class=\"modal-content\">\n        <div class=\"modal-header\">\n          <button type=\"button\"class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n          <h4 class=\"modal-title\">{{title}}</h4>\n        </div>\n        <div class=\"modal-body\" (click)=\"closeModal()\">\n          <ng-content></ng-content>\n        </div>\n      </div>\n    </div>\n  </div>\n  ",
+            //The elementId is passed on by nav bar component
+            template: "             \n  <div id=\"{{elementId}}\" #modalrefvariable class=\"modal fade\" tabindex=\"-1\">\n    <div class=\"modal-dialog\">\n      <div class=\"modal-content\">\n        <div class=\"modal-header\">\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span>&times;</span></button>\n          <h4 class=\"modal-title\">{{title}}</h4>\n        </div>\n        <div class=\"modal-body\" (click)=\"closeModal()\">\n          <ng-content></ng-content>\n        </div>\n      </div>\n    </div>\n  </div>\n  ",
             styles: ["\n    .modal-body { height: 250px; overflow-y: scroll; }\n  "]
         }),
         __param(0, core_1.Inject(jquery_service_1.JQ_TOKEN)), 

@@ -1,3 +1,8 @@
+//Create session component page is displayed when the addMode in parent event details page 
+//is set to true.
+// It takes care of all form validation.
+//Notifies the parent with save and cancel events.
+//
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;

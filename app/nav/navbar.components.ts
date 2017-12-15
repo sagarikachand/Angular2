@@ -21,7 +21,7 @@ constructor(private authSevice:UserAuthService,private eventService:EventService
 ){}
 
 searchSession(searchKey){
-    console.log(searchKey);
+    console.log(searchKey);//Calling searchSession method on eventService
     this.eventService.searchSession(searchKey).subscribe(
         sessions=> {this.foundSessions=sessions;}
         

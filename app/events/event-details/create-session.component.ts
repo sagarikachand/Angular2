@@ -1,3 +1,10 @@
+
+//Create session component page is displayed when the addMode in parent event details page 
+//is set to true.
+// It takes care of all form validation.
+//Notifies the parent with save and cancel events.
+//
+
 import { Component, Output,EventEmitter } from "@angular/core";
 import { FormsModule,ReactiveFormsModule,FormControl, FormGroup, Validators } from '@angular/forms';
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";

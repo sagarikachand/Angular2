@@ -8,19 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-//Starting component that incorporated nav-bar and a router-outlet for route specific teplate
-var core_1 = require('@angular/core');
-var EventsAppComponent = (function () {
-    function EventsAppComponent() {
+var core_1 = require("@angular/core");
+var VoterService = (function () {
+    function VoterService() {
     }
-    EventsAppComponent = __decorate([
-        core_1.Component({
-            selector: 'events-app',
-            template: "\n    <nav-bar></nav-bar>\n    <router-outlet></router-outlet>\n  "
-        }), 
+    VoterService.prototype.deleteVoter = function (session, voterName) {
+        session.voters = session.voters.filter(function (voter) { return voter !== voterName; });
+    };
+    VoterService.prototype.addVoter = function (session, voterName) {
+        session.voters.push(voterName);
+    };
+    VoterService.prototype.userHasVoted = function (session, voterName) {
+        return session.voters.some(function (voter) { return voter === voterName; });
+    };
+    VoterService = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], EventsAppComponent);
-    return EventsAppComponent;
+    ], VoterService);
+    return VoterService;
 }());
-exports.EventsAppComponent = EventsAppComponent;
-//# sourceMappingURL=events-app.component.js.map
+exports.VoterService = VoterService;
+//# sourceMappingURL=voter.service.js.map

@@ -1,3 +1,14 @@
+// When we click on event-thumbnails we are routed to event-details component.
+//This event-details component is concerned with a single event.
+//This event list displays event details and buttons to get session add/display mode,
+//buttons to get the sort and filter criterion.
+//Session Display is handled by session-list child component
+//Session creation is handled by create-session child component
+//This path has a canActivate check-- 
+//If invalid event Id is provided, The EventRouteActivator takes user back to main events route
+// {path:'events/:id' ,component:EventDetailsComponent, 
+// canActivate:[EventRouteActivator]},
+
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { EventService } from '../shared/event.service';

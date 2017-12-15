@@ -19,7 +19,7 @@ var NavBarComponent = (function () {
     }
     NavBarComponent.prototype.searchSession = function (searchKey) {
         var _this = this;
-        console.log(searchKey);
+        console.log(searchKey); //Calling searchSession method on eventService
         this.eventService.searchSession(searchKey).subscribe(function (sessions) { _this.foundSessions = sessions; });
     };
     NavBarComponent = __decorate([

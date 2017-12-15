@@ -1,3 +1,10 @@
+//Event-list component--- Main component that displays all events basic details.
+// The job of displaying each event tab in a particular format is handled by a child Component
+// called event-thumbnail.
+
+// event-thumbnail takes each event through an *ngFor Directive.
+
+
 import { Component } from '@angular/core'
 import { EventService } from './shared/event.service';
 import { OnInit } from '@angular/core/';
@@ -30,9 +37,16 @@ export class EventsListComponent implements OnInit{
   constructor(private eventService:EventService,
      private activatedRoute: ActivatedRoute){}
    
- // 
+ 
   ngOnInit(){
-    this.events=this.activatedRoute.snapshot.data['events'];
+    this.events=this.activatedRoute.snapshot.data['events'];// Copy i.e snapshot of data['events']
+    
+    // Getting the events  through routing parameter called data.
+    //'events' is fetched by Event list resolver. In routes.ts it is specified that this route '/events'
+    //should be resolved---- Event List resolver use EventService.
+    //  {path: 'events', component:EventsListComponent, 
+    //     resolve : { events: EventsListResolver },
+    //   },
 
   }
 

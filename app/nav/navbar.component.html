@@ -37,6 +37,8 @@
           <div class="form-group">
             <input type="text" [(ngModel)]="searchKey" name="searchKey" class="form-control" placeholder="Search Sessions" >
           </div>
+          <!-- Here the click on this button is handled by modal-trigger directive -->
+          <!-- The modal-trigger is passed a string which specifies the ID of the modal to be opened -->
           <button class="btn btn-default" modal-trigger="searchedSession">
             Search
           </button>
@@ -44,10 +46,14 @@
       </div>
     </div>
   </div>
-
+  <!-- Modal box to be opened with the search results -->
+  <!-- This is a custom directive called simple-modal -->
+  <!-- The attribute elementId pass a string to be used as the ID for the simple-modal -->
   <simple-modal title="Matching Sessions" closeOnBodyClick="true" elementId="searchedSession">
       <div class="list-group">
       <a class="list-group-item" *ngFor="let session of foundSessions" 
       [routerLink]="['/events', session.eventId]">{{session.name}}</a>
     </div>
   </simple-modal>
+
+  <!-- When session.name is clicked the page is routed to events details -->

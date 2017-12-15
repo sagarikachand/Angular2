@@ -1,3 +1,6 @@
+//Event-list component--- Main component that displays all events basic details.
+// The job of displaying each event tab in a particular format is handled by a child Component
+// called event-thumbnail.
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -8,6 +11,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+// event-thumbnail takes each event through an *ngFor Directive.
 var core_1 = require('@angular/core');
 var event_service_1 = require('./shared/event.service');
 var router_1 = require('@angular/router');
@@ -16,9 +20,14 @@ var EventsListComponent = (function () {
         this.eventService = eventService;
         this.activatedRoute = activatedRoute;
     }
-    // 
     EventsListComponent.prototype.ngOnInit = function () {
-        this.events = this.activatedRoute.snapshot.data['events'];
+        this.events = this.activatedRoute.snapshot.data['events']; // Copy i.e snapshot of data['events']
+        // Getting the events  through routing parameter called data.
+        //'events' is fetched by Event list resolver. In routes.ts it is specified that this route '/events'
+        //should be resolved---- Event List resolver use EventService.
+        //  {path: 'events', component:EventsListComponent, 
+        //     resolve : { events: EventsListResolver },
+        //   },
     };
     EventsListComponent = __decorate([
         core_1.Component({

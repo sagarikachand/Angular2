@@ -14,15 +14,20 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var core_1 = require('@angular/core');
 var index_1 = require('./index');
 var ModalTriggerDirective = (function () {
+    //the ElementRef is the element on which the directive is used. Directives are attributes .
     function ModalTriggerDirective(ref, $) {
         this.$ = $;
         this.el = ref.nativeElement;
     }
+    //By using ref.nativeElement the button element is available.
+    //Can add event listeners to this button element
     ModalTriggerDirective.prototype.ngOnInit = function () {
         var _this = this;
         this.el.addEventListener('click', function (e) {
             _this.$("#" + _this.modalId).modal({});
         });
+        // Listen for click event on search button and then open the modal with the ID passed 
+        //Use jquery.modal to open the modal
     };
     __decorate([
         core_1.Input('modal-trigger'), 
