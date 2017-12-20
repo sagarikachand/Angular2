@@ -12,18 +12,19 @@ var event_service_1 = require("./shared/event.service");
 var core_1 = require("@angular/core");
 // The reseolver subscribe the observable for us. SO HERE WE DO NOT HAVE TO SUBSCRIBE.
 // Otherwise in a general case we have to subscribe
-var EventsListResolver = (function () {
-    function EventsListResolver(eventservice) {
+var EventResolver = (function () {
+    function EventResolver(eventservice) {
         this.eventservice = eventservice;
     }
-    EventsListResolver.prototype.resolve = function () {
-        return this.eventservice.getEvents();
+    //Resolve method gets activatedRouteSnapshot
+    EventResolver.prototype.resolve = function (activatedRouteSS) {
+        return this.eventservice.getEvent((activatedRouteSS.params['id']));
     };
-    EventsListResolver = __decorate([
+    EventResolver = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [event_service_1.EventService])
-    ], EventsListResolver);
-    return EventsListResolver;
+    ], EventResolver);
+    return EventResolver;
 }());
-exports.EventsListResolver = EventsListResolver;
-//# sourceMappingURL=events-list-resolver.js.map
+exports.EventResolver = EventResolver;
+//# sourceMappingURL=event-details-resolver.js.map

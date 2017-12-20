@@ -47,11 +47,12 @@ export class UserProfileComponent implements OnInit{
        saveProfile(value){
          console.log(this.profileForm.valid)
          if(this.profileForm.valid){
-          this.authService.updateCurrentUser(value);
-          this.toastr.success('Saved Succesfully');
+          this.authService.updateCurrentUser(value).subscribe(()=>{
+            this.toastr.success('Saved Succesfully');
+          });
+          
          }
-         
-    
+      
        }
 
        validateLastName(){
@@ -65,5 +66,10 @@ export class UserProfileComponent implements OnInit{
        
        cancel(){
         this.router.navigate(['events']) ;
+      }
+      logout(){
+        this.authService.logout().subscribe(()=>{
+          this.router.navigate(['user/login']);
+        })
       }
       }

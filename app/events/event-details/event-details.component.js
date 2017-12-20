@@ -31,13 +31,10 @@ var EventDetailsComponent = (function () {
     }
     EventDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.activatedRoute.params.forEach(function (params) {
-            console.log("for each" + params['id']);
-            _this.event = _this.eventService.getEvent(+params['id']);
-            _this.addMode = false; //reset addMode state to default 
-            //Can also reset filterBy and sortBy if necessary
-        }); // Use this forEach method to navigate to routes with id ,
-        //Here the event state is resetting,so reset all states of the component to their defaults.
+        this.activatedRoute.data.forEach(function (data) {
+            _this.event = data['event'];
+            _this.addMode = false;
+        });
         // this.event=this.eventService.getEvent(
         //     +(this.activatedRoute.snapshot.params['id']));
     };
@@ -49,7 +46,7 @@ var EventDetailsComponent = (function () {
         var nextId = Math.max.apply(null, this.event.sessions.map(function (s) { return s.id; }));
         session.id = nextId + 1;
         this.event.sessions.push(session);
-        this.eventService.updateEvent(this.event);
+        this.eventService.saveEvent(this.event).subscribe();
         this.addMode = false;
     };
     EventDetailsComponent.prototype.cancelNewSession = function () {

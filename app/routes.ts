@@ -5,15 +5,15 @@ import { ErrorComponent } from "./errors/404.component";
 import { EventsListComponent,
   EventDetailsComponent,
   CreateEventComponent
-  ,EventsListResolver,EventRouteActivator,CreateSessionComponent} from './events/index'
+  ,EventsListResolver,EventRouteActivator,CreateSessionComponent, EventResolver} from './events/index'
 
 
 export const appRoute:Routes=[
   
   {path: 'events/new', component:CreateEventComponent, 
   canDeactivate: ['CanDeactivateCreateEvent']},
-  {path:'events/:id' ,component:EventDetailsComponent, 
-  canActivate:[EventRouteActivator]},
+  {path:'events/:id' ,component:EventDetailsComponent, resolve:{event: EventResolver}},
+  // canActivate:[EventRouteActivator]
   {path:'events/session/new' ,component:CreateSessionComponent},
   {path: 'events', component:EventsListComponent, 
   resolve : { events: EventsListResolver },

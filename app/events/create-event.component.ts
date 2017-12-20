@@ -34,9 +34,11 @@ export class CreateEventComponent {
 
      saveEvent(Recvalue){
        console.log(Recvalue);
-       this.eventService.saveEvent(Recvalue);
-       this.isDirty=false;
-       this.router.navigate(['/events'])
+       this.eventService.saveEvent(Recvalue).subscribe(e=>{
+        this.isDirty=false;
+        this.router.navigate(['/events'])
+       });
+       
       
     }
 }

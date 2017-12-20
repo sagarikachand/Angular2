@@ -10,15 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 //Starting component that incorporated nav-bar and a router-outlet for route specific teplate
 var core_1 = require('@angular/core');
+var user_auth_service_1 = require('./user/user.auth.service');
 var EventsAppComponent = (function () {
-    function EventsAppComponent() {
+    function EventsAppComponent(userAuth) {
+        this.userAuth = userAuth;
     }
+    // Checking user login status after every refresh
+    EventsAppComponent.prototype.ngOnInit = function () {
+        this.userAuth.checkUserLoginStatus();
+    };
     EventsAppComponent = __decorate([
         core_1.Component({
             selector: 'events-app',
             template: "\n    <nav-bar></nav-bar>\n    <router-outlet></router-outlet>\n  "
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [user_auth_service_1.UserAuthService])
     ], EventsAppComponent);
     return EventsAppComponent;
 }());

@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import {RouterModule,RouterLinkActive} from  '@angular/router'
 import {FormsModule,ReactiveFormsModule} from '@angular/forms'
-
+import {HttpModule} from '@angular/http'
 import { EventsListComponent,
   EventThumbnailComponent,EventDetailsComponent,
   CreateEventComponent,
-  EventService,EventsListResolver,EventRouteActivator, 
+  EventService,EventsListResolver,EventResolver, 
   CreateSessionComponent,SessionListComponent,DurationPipe,UpvoteComponent,
-VoterService} from './events/index'
+VoterService,LocationValidator} from './events/index'
 
 import { NavBarComponent } from './nav/navbar.components';
 
@@ -29,7 +29,7 @@ declare let jQuery:Object;
 
 @NgModule({
   imports: [BrowserModule,
-    FormsModule,ReactiveFormsModule,
+    FormsModule,ReactiveFormsModule,HttpModule,
   RouterModule.forRoot(appRoute)],
   declarations: [
     EventsAppComponent,
@@ -46,19 +46,20 @@ declare let jQuery:Object;
     ModalTriggerDirective,
     SimpleModalComponent,
     UpvoteComponent,
-    
+    LocationValidator
     
     
   ],
   bootstrap: [EventsAppComponent],
-  providers:[ EventService,EventRouteActivator,UserAuthService,VoterService,
+  providers:[ EventService,UserAuthService,VoterService,
     {provide: TOASTR_TOKEN, useValue:toastr},
     {provide: JQ_TOKEN, useValue:jQuery},
     {
       provide:'CanDeactivateCreateEvent',
       useValue: checkDirtyState
     },
-    EventsListResolver
+    EventsListResolver,
+    EventResolver
   ]
 })
 

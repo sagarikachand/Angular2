@@ -17,13 +17,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
   `
 })
 export class UpvoteComponent {
+  iconColor: string;
   @Input() count: number;
-  @Input() set voted(val){
+  @Input() set voted(val){   //Using input setter to set a derived property.
     this.iconColor = val ? 'red' : 'white';
   }
   @Output() vote = new EventEmitter();
-  iconColor: string;
-
+  
   onClick() {
     this.vote.emit({});
   }

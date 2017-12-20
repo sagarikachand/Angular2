@@ -32,13 +32,13 @@ export class SimpleModalComponent {
   constructor(@Inject(JQ_TOKEN) private $:any){} 
   // Injecting jQuery to use .modal method on the modal Ele
 
-  closeModal(){
+  closeModal(){ //run this methos when modal body is clicked
     if(this.closeOnBodyClick.toLocaleLowerCase()==='true')
      this.$(this.modalEle.nativeElement).modal('hide');
 
   }
   
-  //Can also use ViewChildren -- If there is a collection of elements of we want the hold of
+  //Can also use ViewChildren -- If there is a collection of elements of we want the hold of them
   //ContentView- to get projected content 
   //ContentChildren- to get hold of collection of elements inside of Content
 

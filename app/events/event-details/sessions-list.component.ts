@@ -24,11 +24,12 @@ export class SessionListComponent implements OnChanges{
     @Input() sessions:ISession[]
     @Input() filterBy:string
     @Input() sortBy:string
+    @Input() eventId:number
     visibleSession:ISession[]=[];
     constructor(private authService:UserAuthService,
                  private voterService:VoterService){}
 
-     ngOnChanges(){ // Whenever the @Input changes ,call filter method, filter takes care of sort as well
+     ngOnChanges(){ // Whenever the @Input variables change ,call filter method, filter takes care of sort as well
          console.log("ngOnChanges");
          if(this.sessions){
              this.filterSession(this.filterBy);
@@ -39,10 +40,10 @@ export class SessionListComponent implements OnChanges{
          console.log(this.userHasVoted(session) +"::" + session.name)
          if(this.userHasVoted(session)){
              
-          this.voterService.deleteVoter(session,this.authService.currentUser.userName);
+          this.voterService.deleteVoter(this.eventId,session,this.authService.currentUser.userName);
          }else{
             console.log("inside add")
-            this.voterService.addVoter(session,this.authService.currentUser.userName);
+            this.voterService.addVoter(this.eventId,session,this.authService.currentUser.userName);
          }
          if(this.sortBy=='votes'){
              this.visibleSession.sort(sortByVotesDesc);

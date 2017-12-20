@@ -1,66 +1,108 @@
 import { Injectable,EventEmitter } from "@angular/core";
-import  {Subject} from 'rxjs/Rx'
+import  {Subject,Observable} from 'rxjs/Rx'
 import { IEvent } from "./event.model";
-import { Observable } from "rxjs/Observable";
 import { ISession } from "../index";
-
-
-
+import { Http ,Response,Headers,Request, RequestOptions} from "@angular/http";
 
 
 @Injectable()
 export class EventService{
   
+  
+  constructor(private http:Http){}
     
-    getEvents(){
-       let subject= new Subject();
-       setTimeout(()=> {subject.next(EVENTS); subject.complete();},
-       100)
-       return subject;
+    getEvents():Observable<IEvent[]>{
+
+      return this.http.get("/api/events").map((response:Response)=>{
+       return <IEvent[]>response.json();
+      }).catch(this.handleError);
+      
+      //  let subject= new Subject();
+      //  setTimeout(()=> {subject.next(EVENTS); subject.complete();},
+      //  100)
+      //  return subject;
      
     }
 
-    getEvent(id:number){
-      return  EVENTS.find(event=> event.id===id)
+    getEvent(id:number):Observable<IEvent>{
+      console.log(id +"from http");
+      return  this.http.get("/api/events/" + id).map((response:Response)=>{
+        console.log("response.json")
+       
+        return <IEvent>response.json();
+      }).catch(this.handleError)
+     
     }
-
-    saveEvent(eventObj){
-      eventObj.id=999;
-      eventObj.sessions=[],
-      EVENTS.push(eventObj);
-    }
-
-    updateEvent(event){
-      console.log("inside updateEvent in service")
-      let index= EVENTS.findIndex(x=> x.id =event.id);
-      EVENTS[index]=event;
-    }
-    
-    searchSession(searchKey:string){
-      var matchingSessions=[];
-      var term=searchKey.toLocaleLowerCase();
-      var results:ISession[]=[];
-      EVENTS.forEach((event)=>{
-           matchingSessions=event.sessions.filter(session=>{
-            
-             return  session.name.toLocaleLowerCase().indexOf(term) >-1
-          })
-          console.log(matchingSessions.length +  "arrL")
-          matchingSessions= matchingSessions.map(
-            (session:any)=>{session.eventId=event.id;
-          return session;})
-          results=results.concat(matchingSessions);
-          
-      })
-      var emitter= new EventEmitter(true);
-      setTimeout(()=>{emitter.emit(results)},100);
-      return emitter;
+    //For post request we need Headers and Request options
+    saveEvent(eventObj):Observable<IEvent>{
+      let headers= new Headers({'Content-Type':'application/json'});
+      let options= new RequestOptions({headers:headers});
+      //JSON.stingify is optional, You can pass JS object that you want to send
+      //and angular will convert it to json
+      //post request returns a response, that is the saved event
+     return  this.http.post('/api/events',JSON.stringify(eventObj),options)
+     .map((response:Response)=>{
+       return response.json();
+     }).catch(this.handleError) 
+     //The .map is totally optional.If your code expects something in return of a post operation 
+     //Then use it.
       
+    }
+    // AS per our login we do not need a put request. The '/api/events' end point is smart.
+    //It knows if there is an id then it is an exisiting event and updates it.
+    
+    
+    
+    //For searching sessions the endpoint is "/api/sessions/search"
+    searchSession(searchKey:string){
+      return  this.http.get("/api/sessions/search?search=" + searchKey).map((response:Response)=>{
+        console.log("response.json")
+       
+        return response.json();
+      }).catch(this.handleError)
+    }
+
+    private handleError(error:Response){
+       return Observable.throw(error.statusText);
     }
 }
 
 
+
+
+
+
+
+//searchSession(searchKey:string){
+  //   var matchingSessions=[];
+  //   var term=searchKey.toLocaleLowerCase();
+  //   var results:ISession[]=[];
+  //   EVENTS.forEach((event)=>{
+  //        matchingSessions=event.sessions.filter(session=>{
+          
+  //          return  session.name.toLocaleLowerCase().indexOf(term) >-1
+  //       })
+  //       console.log(matchingSessions.length +  "arrL")
+  //       matchingSessions= matchingSessions.map(
+  //         (session:any)=>{session.eventId=event.id;
+  //       return session;})
+  //       results=results.concat(matchingSessions);
+        
+  //   })
+  //   var emitter= new EventEmitter(true);
+  //   setTimeout(()=>{emitter.emit(results)},100);
+  //   return emitter;
+    
+  // }
+
+// updateEvent(event){
+    //   console.log("inside updateEvent in service")
+    //   let index= EVENTS.findIndex(x=> x.id =event.id);
+    //   EVENTS[index]=event;
+    // }
 const EVENTS:IEvent[] = [
+
+
     {
       id: 1,
       name: 'Angular Connect',
@@ -366,3 +408,5 @@ const EVENTS:IEvent[] = [
       ]
     }
   ]
+
+  

@@ -1,6 +1,9 @@
 import { Component ,Input} from '@angular/core';
 import { Title } from '@angular/platform-browser/src/browser/title';
 
+
+
+// Here we use the select attribute on ng-content to bind it to a particular section of the projected content
 @Component({
     selector: 'content-slide',
     template:`

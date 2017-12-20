@@ -1,3 +1,6 @@
+<!-- The safe navigation operator is necessary in all expression , otherwise error will be thrown as soon as
+page loads. -->
+
 <div class="container">
     <img [src]="event?.imageUrl" [alt]="event?.name" class="event-image">
   
@@ -53,9 +56,10 @@
              <a (click)=addSession() >Add Session</a>
           </div>
     </div>
+   
     
-    
-    <sessions-list *ngIf="!addMode" [filterBy]="filterBy" [sortBy]="sortBy" [sessions]=event.sessions></sessions-list>
+    <sessions-list *ngIf="!addMode" [eventId]="event?.id"
+    [filterBy]="filterBy" [sortBy]="sortBy" [sessions]=event?.sessions></sessions-list>
     <create-session *ngIf="addMode" (saveNewSession)="saveNewSession($event)" 
-    (cancelNewSession)="cancelNewSession()"></create-session>
+    (cancelNewSession)="cancelNewSession()"></create-session> 
   </div>

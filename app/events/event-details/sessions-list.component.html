@@ -7,11 +7,17 @@
         </div>
         <div class="col-md-10">
           <content-slide>
-             <div well-title>
+            <!-- Here the attribute well-title(just a random appropriate string name) is used to
+            bind this div to a ng-content 'select' attribute Eg.
+            <ng-content select="[well-title]"></ng-content> -->
+             <div well-title>  
                {{session.name}}
                <i *ngIf="session.voters.length>3" class="glyphicon glyphicon-fire" 
                  style="color:red"></i>
              </div>
+             <!-- Here the attribute well-body(just a random appropriate string name) is used to
+            bind this div to a ng-content 'select' attribute Eg.
+            <ng-content select="[well-body]"></ng-content> -->
              <div well-body>
                 <h6>{{session.presenter}}</h6>
                 <span>Duration: {{session.duration |duration}}</span><br />

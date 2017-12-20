@@ -9,21 +9,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var Rx_1 = require("rxjs/Rx");
+//Since here we do not want any response from add and delete voter we self subscribe it.And hence we do not return.
+//Now they cannot take response and map it.
 var VoterService = (function () {
-    function VoterService() {
+    function VoterService(http) {
+        this.http = http;
     }
-    VoterService.prototype.deleteVoter = function (session, voterName) {
-        session.voters = session.voters.filter(function (voter) { return voter !== voterName; });
+    VoterService.prototype.deleteVoter = function (eventId, session, voterName) {
+        session.voters = session.voters.filter(function (voter) { return voter !== voterName; }); //For local updation
+        this.http.delete("/api/events/" + eventId + "/sessions/" + session.id + "/voters/" + voterName).catch(this.handleError).
+            subscribe();
     };
-    VoterService.prototype.addVoter = function (session, voterName) {
+    VoterService.prototype.addVoter = function (eventId, session, voterName) {
         session.voters.push(voterName);
+        //let url="/api/events/" + eventId + "/sessions/" + session.id + "/voters/" + voterName;
+        var url = "/api/events/" + eventId + "/sessions/" + session.id + "/voters/" + voterName;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        //Here we have all data in the URl, so we strigify empty object
+        this.http.post(url, JSON.stringify({}), options).catch(this.handleError).subscribe();
     };
     VoterService.prototype.userHasVoted = function (session, voterName) {
         return session.voters.some(function (voter) { return voter === voterName; });
     };
+    VoterService.prototype.handleError = function (error) {
+        return Rx_1.Observable.throw(error.statusText);
+    };
     VoterService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], VoterService);
     return VoterService;
 }());

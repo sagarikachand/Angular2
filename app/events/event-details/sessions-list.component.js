@@ -31,11 +31,11 @@ var SessionListComponent = (function () {
     SessionListComponent.prototype.toggleVote = function (session) {
         console.log(this.userHasVoted(session) + "::" + session.name);
         if (this.userHasVoted(session)) {
-            this.voterService.deleteVoter(session, this.authService.currentUser.userName);
+            this.voterService.deleteVoter(this.eventId, session, this.authService.currentUser.userName);
         }
         else {
             console.log("inside add");
-            this.voterService.addVoter(session, this.authService.currentUser.userName);
+            this.voterService.addVoter(this.eventId, session, this.authService.currentUser.userName);
         }
         if (this.sortBy == 'votes') {
             this.visibleSession.sort(sortByVotesDesc);
@@ -70,6 +70,10 @@ var SessionListComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], SessionListComponent.prototype, "sortBy", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Number)
+    ], SessionListComponent.prototype, "eventId", void 0);
     SessionListComponent = __decorate([
         core_1.Component({
             selector: "sessions-list",

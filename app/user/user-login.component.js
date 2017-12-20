@@ -15,10 +15,18 @@ var UserLoginComponent = (function () {
     function UserLoginComponent(userAuthService, router) {
         this.userAuthService = userAuthService;
         this.router = router;
+        this.loginInvalid = false;
     }
     UserLoginComponent.prototype.login = function (formValue) {
-        this.userAuthService.setAuth(formValue.userName, formValue.password);
-        this.router.navigate(['events']);
+        var _this = this;
+        this.userAuthService.setAuth(formValue.userName, formValue.password).subscribe(function (resp) {
+            if (!resp) {
+                _this.loginInvalid = true;
+            }
+            else {
+                _this.router.navigate(['events']);
+            }
+        });
     };
     UserLoginComponent.prototype.cancel = function () {
         this.router.navigate(['events']);

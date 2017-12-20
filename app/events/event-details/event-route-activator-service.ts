@@ -1,3 +1,7 @@
+
+//No longer using this class because the data is now fetched in Resolve.
+
+
 import { Injectable } from "@angular/core";
 
 import { EventService } from "../shared/event.service";

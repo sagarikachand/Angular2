@@ -33,10 +33,12 @@ var UserProfileComponent = (function () {
         });
     };
     UserProfileComponent.prototype.saveProfile = function (value) {
+        var _this = this;
         console.log(this.profileForm.valid);
         if (this.profileForm.valid) {
-            this.authService.updateCurrentUser(value);
-            this.toastr.success('Saved Succesfully');
+            this.authService.updateCurrentUser(value).subscribe(function () {
+                _this.toastr.success('Saved Succesfully');
+            });
         }
     };
     UserProfileComponent.prototype.validateLastName = function () {
@@ -47,6 +49,12 @@ var UserProfileComponent = (function () {
     };
     UserProfileComponent.prototype.cancel = function () {
         this.router.navigate(['events']);
+    };
+    UserProfileComponent.prototype.logout = function () {
+        var _this = this;
+        this.authService.logout().subscribe(function () {
+            _this.router.navigate(['user/login']);
+        });
     };
     UserProfileComponent = __decorate([
         core_1.Component({

@@ -20,10 +20,12 @@
       <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
     
     <button type="button" (click)="cancel()" class="btn btn-default">Cancel</button>
+    
 
     
   </form>
+  <div *ngIf="loginInvalid" class="alert alert-danger">Invalid UserName or Login ID.</div>
 </div>
 <div class="col-md-5">
-  {{loginForm.form.invalid}}
+  validUserName: Johnpapa
 </div>

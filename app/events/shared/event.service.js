@@ -10,53 +10,83 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var Rx_1 = require('rxjs/Rx');
+var http_1 = require("@angular/http");
 var EventService = (function () {
-    function EventService() {
+    function EventService(http) {
+        this.http = http;
     }
     EventService.prototype.getEvents = function () {
-        var subject = new Rx_1.Subject();
-        setTimeout(function () { subject.next(EVENTS); subject.complete(); }, 100);
-        return subject;
+        return this.http.get("/api/events").map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+        //  let subject= new Subject();
+        //  setTimeout(()=> {subject.next(EVENTS); subject.complete();},
+        //  100)
+        //  return subject;
     };
     EventService.prototype.getEvent = function (id) {
-        return EVENTS.find(function (event) { return event.id === id; });
+        console.log(id + "from http");
+        return this.http.get("/api/events/" + id).map(function (response) {
+            console.log("response.json");
+            return response.json();
+        }).catch(this.handleError);
     };
+    //For post request we need Headers and Request options
     EventService.prototype.saveEvent = function (eventObj) {
-        eventObj.id = 999;
-        eventObj.sessions = [],
-            EVENTS.push(eventObj);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        //JSON.stingify is optional, You can pass JS object that you want to send
+        //and angular will convert it to json
+        //post request returns a response, that is the saved event
+        return this.http.post('/api/events', JSON.stringify(eventObj), options)
+            .map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+        //The .map is totally optional.If your code expects something in return of a post operation 
+        //Then use it.
     };
-    EventService.prototype.updateEvent = function (event) {
-        console.log("inside updateEvent in service");
-        var index = EVENTS.findIndex(function (x) { return x.id = event.id; });
-        EVENTS[index] = event;
-    };
+    // AS per our login we do not need a put request. The '/api/events' end point is smart.
+    //It knows if there is an id then it is an exisiting event and updates it.
+    //For searching sessions the endpoint is "/api/sessions/search"
     EventService.prototype.searchSession = function (searchKey) {
-        var matchingSessions = [];
-        var term = searchKey.toLocaleLowerCase();
-        var results = [];
-        EVENTS.forEach(function (event) {
-            matchingSessions = event.sessions.filter(function (session) {
-                return session.name.toLocaleLowerCase().indexOf(term) > -1;
-            });
-            console.log(matchingSessions.length + "arrL");
-            matchingSessions = matchingSessions.map(function (session) {
-                session.eventId = event.id;
-                return session;
-            });
-            results = results.concat(matchingSessions);
-        });
-        var emitter = new core_1.EventEmitter(true);
-        setTimeout(function () { emitter.emit(results); }, 100);
-        return emitter;
+        return this.http.get("/api/sessions/search?search=" + searchKey).map(function (response) {
+            console.log("response.json");
+            return response.json();
+        }).catch(this.handleError);
+    };
+    EventService.prototype.handleError = function (error) {
+        return Rx_1.Observable.throw(error.statusText);
     };
     EventService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], EventService);
     return EventService;
 }());
 exports.EventService = EventService;
+//searchSession(searchKey:string){
+//   var matchingSessions=[];
+//   var term=searchKey.toLocaleLowerCase();
+//   var results:ISession[]=[];
+//   EVENTS.forEach((event)=>{
+//        matchingSessions=event.sessions.filter(session=>{
+//          return  session.name.toLocaleLowerCase().indexOf(term) >-1
+//       })
+//       console.log(matchingSessions.length +  "arrL")
+//       matchingSessions= matchingSessions.map(
+//         (session:any)=>{session.eventId=event.id;
+//       return session;})
+//       results=results.concat(matchingSessions);
+//   })
+//   var emitter= new EventEmitter(true);
+//   setTimeout(()=>{emitter.emit(results)},100);
+//   return emitter;
+// }
+// updateEvent(event){
+//   console.log("inside updateEvent in service")
+//   let index= EVENTS.findIndex(x=> x.id =event.id);
+//   EVENTS[index]=event;
+// }
 var EVENTS = [
     {
         id: 1,
